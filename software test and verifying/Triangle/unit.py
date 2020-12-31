@@ -30,6 +30,10 @@ class Test1(unittest.TestCase):
         print('execute test_five')
         obj = JudgeMethod()
         assert obj.TriJud(1, 1, 1) == "equilateral"
+    def test_my_judge_6(self):
+        print('execute test_six')
+        obj = JudgeMethod()
+        assert obj.TriJud(2, 3, 4) == "scalene"
 
 if __name__ == '__main__':
     unittest.main()

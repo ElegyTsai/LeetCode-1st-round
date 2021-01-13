@@ -1,5 +1,4 @@
-import collections
-
+class Solution(object):
     def canFinish(self, numCourses, prerequisites):
         """
         :type numCourses: int
@@ -14,6 +13,7 @@ import collections
 
         #从边缘列表转化成邻接矩阵
         que=collections.deque()
+        flag=1
         while flag == 1:
             flag=0
             for index,j in enumerate(ind):
@@ -22,11 +22,8 @@ import collections
                     for ii in edge[index]:
                         ind[ii]-=1
                     flag=1
+                    ind[index]=-1
         if len(que)==numCourses:
             return True
         else:
             return False
-
-
-
-

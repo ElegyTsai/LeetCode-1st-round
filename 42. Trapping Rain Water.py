@@ -4,6 +4,7 @@ class Solution(object):
         :type height: List[int]
         :rtype: int
         """
+        #单调栈
         stack = []
         s = 0
         for i, h in enumerate(height):

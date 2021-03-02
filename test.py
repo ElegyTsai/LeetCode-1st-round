@@ -1,7 +1,5 @@
-
-a=[i for i in range(0,10)]
-
-for j in range(0,10):
-    print (j)
-    break
-print(j)
+a=["11","22"]
+k=10
+for i in range(k):
+    k+=1
+print(k)

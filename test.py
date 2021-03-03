@@ -1,35 +1,42 @@
-class TreeNode(object):
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
 class Solution(object):
-    def generateTrees(self, n):
+    def eatenApples(self, apples, days):
         """
-        :type n: int
-        :rtype: List[TreeNode]
+        :type apples: List[int]
+        :type days: List[int]
+        :rtype: int
         """
-        dp = [[[] for loc in range(n+1)] for i in range(n + 1)]
 
-        for l in range(0, n + 1):
-            for loc in range(n-l+1):
-                if l == 0:
-                    dp[l][loc].append(None)
-                elif l == 1:
-                    now = TreeNode()
-                    now.val = loc + 1
-                    dp[l][loc].append(now)
+        store = [0 for i in range(50000)]
+        now = 0
+        res = 0
+        last = 0
 
-                else:
-                    for kk in range(0, l ):
-                        for leftnode in dp[kk][loc]:
-                            for rightnode in dp[l - kk - 1][loc + kk +1]:
-                                now = TreeNode()
-                                now.val = loc + kk + 2
-                                now.left = leftnode
-                                now.right = rightnode
-                                dp[l][loc].append(now)
+        def find(store, now, last):
+            while now <= last and store[now] == 0:
+                now += 1
+            if now > last:
+                return -1
+            elif now <= last:
+                return now
 
-        return dp[n][0]
+        while now < len(days) or now<=last:
+            if now < len(days):
+                badday = now + days[now]-1
+
+                store[badday] += apples[now]
+                if badday > last:
+                    last = badday
+                eat=find(store, now, last)
+                if eat != -1:
+                    store[eat] -= 1
+                    res += 1
+                now += 1
+            else:
+                eat=find(store, now, last)
+                res += min(store[eat],eat-now+1)
+                now =eat+1
+
+
+        return res
 s=Solution()
-print(s.generateTrees(5))
+print(s.eatenApples([1],[2]))

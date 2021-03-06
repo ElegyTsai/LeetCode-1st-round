@@ -15,5 +15,5 @@ class Solution(object):
             else:
                 res[i] = res[i // 2] + i % 2
 
-        return res
+        return resd
 

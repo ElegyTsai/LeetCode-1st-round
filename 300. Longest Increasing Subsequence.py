@@ -1,26 +1,39 @@
 class Solution(object):
-    def lengthOfLIS(self, nums):
+    def kEmptySlots(self, bulbs, k):
         """
-        :type nums: List[int]
+        :type bulbs: List[int]
+        :type k: int
         :rtype: int
         """
-        dp=[0 for i in range(len(nums))]
-        for i in range(len(nums)):
-            m=0
-            for j in range(0,i):
-                if dp[j]>m and nums[j]<nums[i]:
-                    m=dp[j]
-            dp[i]=m+1
-        m = 1
-        for j in range(len(nums)):
-            if dp[j] > m :
-                m = dp[j]
 
+        def search(n, sta):
+            k1 = n + 1
+            while k1 < len(sta) and sta[k1] != 1:
+                k1 += 1
 
-        return m
+            if k1 == len(sta):
+                res1 = -1
+            else:
+                res1 = k1 - n
+            k2 = n - 1
+            while k2 >= 0 and sta[k2] != 1:
+                k2 -= 1
 
+            if k2 == -1:
+                res2 = -1
+            else:
+                res2 = n - k2
 
+            return res1, res2
 
+        sta = [0 for i in range(len(bulbs))]
+        for day, n in enumerate(bulbs):
+            sta[n - 1] = 1
+            k1, k2 = search(n - 1, sta)
+            if k1 == k or k2 == k:
+                return day
 
-r=Solution()
-print(r.lengthOfLIS([10,9,2,5,3,7,101,18]))
+        return -1
+
+s=Solution()
+print(s.kEmptySlots())
